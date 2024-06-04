@@ -4,7 +4,7 @@ export default function cleanSet(set, startString) {
   }
   const array = [];
   for (const fruit of set) {
-    if (fruit.startsWith(startString)) {
+    if (fruit.startsWith(startString) && fruit !== undefined) {
       const str = fruit.slice(startString.length);
       array.push(str);
     }
