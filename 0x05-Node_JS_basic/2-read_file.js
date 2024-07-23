@@ -15,7 +15,7 @@ const countStudents = (thePath) => {
   students.forEach((student) => {
     const studentInfo = student.split(',');
     const name = studentInfo[0];
-    const field = studentInfo[studentInfo.length - 1];
+    const field = studentInfo[3];
     if (mainDict[field]) {
       mainDict[field].Count += 1;
       mainDict[field].List.push(name);
