@@ -8,23 +8,20 @@ const countStudents = (thePath) => {
   const dataList = data.trim().split('\n');
   const students = dataList.slice(1);
   console.log('Number of students:', students.length);
-  const mainDict = {
-    CS: { Count: 0, List: [] },
-    SWE: { Count: 0, List: [] },
-  };
+  const mainDict = {};
   students.forEach((student) => {
     const studentInfo = student.split(',');
     const name = studentInfo[0];
     const field = studentInfo[3];
-    if (mainDict[field]) {
-      mainDict[field].Count += 1;
-      mainDict[field].List.push(name);
+    if (!mainDict[field]) {
+      mainDict[field] = [];
     }
+    mainDict[field].push(name);
   });
   for (const key in mainDict) {
     if (Object.prototype.hasOwnProperty.call(mainDict, key)) {
-      const count = mainDict[key].Count;
-      const names = mainDict[key].List.join(', ');
+      const count = mainDict[key].length;
+      const names = mainDict[key].join(', ');
       console.log(`Number of students in ${key}: ${count}. List: ${names}`);
     }
   }
