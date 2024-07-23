@@ -7,7 +7,8 @@ const countStudents = (path) => {
   const data = fs.readFileSync(path, 'utf8');
   const dataList = data.trim().split('\n');
   const students = dataList.slice(1);
-  console.log('Number of students:', students.length);
+  const totalStudents = students.length;
+  console.log(`Number of students: ${totalStudents}`);
   const mainDict = {};
   students.forEach((student) => {
     const studentInfo = student.split(',');
