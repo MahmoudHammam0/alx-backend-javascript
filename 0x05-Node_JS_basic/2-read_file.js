@@ -5,8 +5,8 @@ const countStudents = (thePath) => {
   const filePath = path.join(__dirname, thePath);
   try {
     const data = fs.readFileSync(filePath, 'utf8');
-    const dataList = data.split('\n');
-    const students = dataList.slice(1, dataList.length - 1);
+    const dataList = data.trim().split('\n');
+    const students = dataList.slice(1);
     console.log('Number of students:', students.length);
     const mainDict = {
       CS: { Count: 0, List: [] },
