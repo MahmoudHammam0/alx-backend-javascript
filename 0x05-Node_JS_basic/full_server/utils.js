@@ -1,41 +1,40 @@
-/* eslint-disable consistent-return */
 const fs = require('fs');
 
-const readDatabase = (path) => new Promise((resolve, reject) => {
-  if (!fs.existsSync(path)) {
-    return reject(new Error('Cannot load the database'));
+const readDatabase = (dataPath) => new Promise((resolve, reject) => {
+  if (!dataPath) {
+    reject(new Error('Cannot load the database'));
   }
-
-  fs.readFile(path, 'utf8', (err, data) => {
-    if (err) {
-      return reject(new Error('Error reading the file'));
-    }
-
-    const dataList = data.trim().split('\n');
-    const students = dataList.slice(1);
-    const totalStudents = students.length;
-    console.log(`Number of students: ${totalStudents}`);
-    const mainDict = {};
-    students.forEach((student) => {
-      const studentInfo = student.split(',');
-      const name = studentInfo[0];
-      const field = studentInfo[studentInfo.length - 1];
-      if (!mainDict[field]) {
-        mainDict[field] = [];
+  if (dataPath) {
+    fs.readFile(dataPath, (err, data) => {
+      if (err) {
+        reject(new Error('Cannot load the database'));
       }
-      mainDict[field].push(name);
+      if (data) {
+        const fileLines = data
+          .toString('utf-8')
+          .trim()
+          .split('\n');
+        const studentGroups = {};
+        const dbFieldNames = fileLines[0].split(',');
+        const studentPropNames = dbFieldNames
+          .slice(0, dbFieldNames.length - 1);
+
+        for (const line of fileLines.slice(1)) {
+          const studentRecord = line.split(',');
+          const studentPropValues = studentRecord
+            .slice(0, studentRecord.length - 1);
+          const field = studentRecord[studentRecord.length - 1];
+          if (!Object.keys(studentGroups).includes(field)) {
+            studentGroups[field] = [];
+          }
+          const studentEntries = studentPropNames
+            .map((propName, idx) => [propName, studentPropValues[idx]]);
+          studentGroups[field].push(Object.fromEntries(studentEntries));
+        }
+        resolve(studentGroups);
+      }
     });
-
-    for (const key in mainDict) {
-      if (Object.prototype.hasOwnProperty.call(mainDict, key)) {
-        const count = mainDict[key].length;
-        const names = mainDict[key].join(', ');
-        console.log(`Number of students in ${key}: ${count}. List: ${names}`);
-      }
-    }
-    resolve(mainDict);
-  });
+  }
 });
-/* eslint-disable consistent-return */
 
 module.exports = readDatabase;
