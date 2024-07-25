@@ -1,21 +1,22 @@
 const sendPaymentRequestToApi = require('./4-payment');
-const sinon = require('sinon');
 const Utils = require('./utils');
+const sinon = require('sinon');
 
-describe('sendPaymentRequestToApi', function() {
-  it('should call the payment function with the correct args with spies', function() {
+describe ('Test suite', () => {
+  it('Test that sendPaymentRequestToApi is same as Utils.calculateNumber SUM', () => {
     const spy = sinon.spy(Utils, 'calculateNumber');
     sendPaymentRequestToApi(100, 20);
     spy.calledWith('SUM', 100, 20);
     spy.restore();
   });
 
-  it('should call the payment function with the correct args with stubs', function() {
+  it('Test that sendPaymentRequestToApi is logging to console correctly', () => {
     const stub = sinon.stub(Utils, 'calculateNumber').returns(10);
     const spy = sinon.spy(console, 'log');
     sendPaymentRequestToApi(100, 20);
     stub.calledWith('SUM', 100, 20);
     spy.calledWith('The total is: 10');
+    stub.returns(10);
     spy.restore();
     stub.restore();
   });
