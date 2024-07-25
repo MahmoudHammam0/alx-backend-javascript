@@ -3,7 +3,7 @@ const sendPaymentRequestToApi = require('./3-payment');
 const sinon = require('sinon');
 const Utils = require('./utils');
 
-describe('sendPaymentRequestToApi()', function() {
+describe('sendPaymentRequestToApi', function() {
   it('should call the payment function with the correct args', function() {
     const spy = sinon.spy(Utils, 'calculateNumber');
     sendPaymentRequestToApi(100, 20);
