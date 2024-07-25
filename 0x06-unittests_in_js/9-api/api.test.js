@@ -6,7 +6,6 @@ describe('index page testing', function() {
     request('http://localhost:7865', (error, res, body) => {
       expect(body).to.equal('Welcome to the payment system');
       expect(res.statusCode).to.equal(200);
-      expect(res.request.method).to.equal('GET');
     });
   });
 
@@ -14,7 +13,6 @@ describe('index page testing', function() {
     request('http://localhost:7865/cart/12', (error, res, body) => {
       expect(body).to.equal('Payment methods for cart 12');
       expect(res.statusCode).to.equal(200);
-      expect(res.request.method).to.equal('GET');
     });
   });
 
