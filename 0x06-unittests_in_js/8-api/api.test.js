@@ -5,6 +5,8 @@ describe('index page testing', function() {
   it('should respond successfully with welcome message', function() {
     request('http://localhost:7865', (error, res, body) => {
       expect(body).to.equal('Welcome to the payment system');
+      expect(res.statusCode).to.equal(200);
+      expect(res.request.method).to.equal('GET');
     });
   });
 });
