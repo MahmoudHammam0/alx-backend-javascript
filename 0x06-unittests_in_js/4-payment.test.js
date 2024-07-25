@@ -16,7 +16,6 @@ describe('sendPaymentRequestToApi', function() {
     sendPaymentRequestToApi(100, 20);
     stub.calledWith('SUM', 100, 20);
     spy.calledWith('The total is: 10');
-    stub.returns(10);
     spy.restore();
     stub.restore();
   });
