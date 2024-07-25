@@ -23,4 +23,10 @@ describe('index page testing', function() {
       expect(res.statusCode).to.equal(404);
     });
   });
+
+  it('should fail with non numeric values as id for cart', function() {
+    request('http://localhost:7865/cart/4568-das3254as', (error, res, body) => {
+      expect(res.statusCode).to.equal(404);
+    });
+  });
 });
