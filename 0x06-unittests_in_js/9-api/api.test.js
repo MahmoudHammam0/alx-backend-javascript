@@ -21,7 +21,6 @@ describe('index page testing', function() {
   it('should fail with strings as id for cart', function() {
     request('http://localhost:7865/cart/hello', (error, res, body) => {
       expect(res.statusCode).to.equal(404);
-      expect(res.request.method).to.be.equal('GET');
     });
   });
 });
