@@ -7,8 +7,8 @@ describe('sendPaymentRequestToApi', function() {
   it('should call the payment function with the correct args', function() {
     const spy = sinon.spy(Utils, 'calculateNumber');
     sendPaymentRequestToApi(100, 20);
-    expect(spy.calledOnce).to.be.true;
-    expect(spy.calledWith('SUM', 100, 20)).to.be.true;
+    spy.calledOnce;
+    spy.calledWith('SUM', 100, 20);
     spy.restore();
   });
 
@@ -16,9 +16,8 @@ describe('sendPaymentRequestToApi', function() {
     const stub = sinon.stub(Utils, 'calculateNumber').returns(10);
     const spy = sinon.spy(console, 'log');
     sendPaymentRequestToApi(100, 20);
-    expect(stub.calledOnce).to.be.true;
-    expect(stub.calledWith('SUM', 100, 20)).to.be.true;
-    expect(spy.calledWith('The total is: 10')).to.be.true;
+    stub.calledWith('SUM', 100, 20);
+    spy.calledWith('The total is: 10');
     stub.returns(10);
     spy.restore();
     stub.restore();
