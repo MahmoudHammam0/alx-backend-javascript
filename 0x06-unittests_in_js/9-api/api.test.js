@@ -25,7 +25,7 @@ describe('index page testing', function() {
   });
 
   it('should fail with non numeric values as id for cart', function() {
-    request('http://localhost:7865/cart/4568-das3254as', (error, res, body) => {
+    request('http://localhost:7865/cart/d200-44a5-9de6', (error, res, body) => {
       expect(res.statusCode).to.equal(404);
     });
   });
