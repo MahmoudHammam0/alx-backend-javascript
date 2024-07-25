@@ -35,4 +35,19 @@ describe('index page testing', function() {
       expect(res.statusCode).to.equal(404);
     });
   });
+
+it('should return the available payment object', function() {
+    request('http://localhost:7865/available_payments', (error, res, body) => {
+      expect(res.statusCode).to.equal(200);
+      expect(JSON.parse(body))
+        .to.be.deep.equal({ payment_methods: {credit_cards: true, paypal: false} });
+    });
+  });
+
+  it('should return a welcome message with the sent userName', function() {
+    request.post('http://localhost:7865/login', {json: {userName: 'Betty'}}, (error, res, body) => {
+      expect(res.statusCode).to.be.equal(200);
+      expect(body).to.be.equal('Welcome Betty');
+    });
+  });
 });
