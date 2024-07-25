@@ -41,6 +41,7 @@ it('should return the available payment object', function() {
       expect(res.statusCode).to.equal(200);
       expect(JSON.parse(body))
         .to.be.deep.equal({ payment_methods: {credit_cards: true, paypal: false} });
+      expect(res.request.method).to.equal('GET');
     });
   });
 
@@ -48,6 +49,7 @@ it('should return the available payment object', function() {
     request.post('http://localhost:7865/login', {json: {userName: 'Betty'}}, (error, res, body) => {
       expect(res.statusCode).to.be.equal(200);
       expect(body).to.be.equal('Welcome Betty');
+      expect(res.request.method).to.equal('POST');
     });
   });
 });
