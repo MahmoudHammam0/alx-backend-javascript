@@ -1,22 +1,36 @@
-const sendPaymentRequestToApi = require('./4-payment');
-const sinon = require('sinon');
-const Utils = require('./utils');
+const sendPaymentRequestToApi = require('./4-payment.js')
+const Utils = require('./utils.js')
 
-describe('sendPaymentRequestToApi', function() {
-  it('should call the payment function with the correct args with spies', function() {
-    const spy = sinon.spy(Utils, 'calculateNumber');
-    sendPaymentRequestToApi(100, 20);
-    spy.calledWith('SUM', 100, 20);
-    spy.restore();
-  });
+const sinon = require("sinon");
+const chai = require("chai")
+const expect = chai.expect
 
-  it('should call the payment function with the correct args with stubs', function() {
-    const stub = sinon.stub(Utils, 'calculateNumber').returns(10);
-    const spy = sinon.spy(console, 'log');
-    sendPaymentRequestToApi(100, 20);
-    stub.calledWith('SUM', 100, 20);
-    spy.calledWith('The total is: 10');
-    spy.restore();
-    stub.restore();
-  });
+describe("sendPaymentRequestToApi", function() {
+    it("Spy sendPaymentRequestToApi", function() {
+        const spy = sinon.spy(Utils, "calculateNumber");
+
+        sendPaymentRequestToApi(100, 20)
+
+        expect(spy.calledWithExactly('SUM', 100, 20)).to.be.true;
+        spy.restore();
+
+    });
+});
+
+describe("Stub test for the calculateNumber", function() {
+    it("Stub the calculateNumber function", function() {
+        const stub = sinon.stub(Utils, "calculateNumber");
+        stub.returns(10);
+        stub.calledWith('SUM', 100, 20);
+        stub.restore();
+    });
+});
+
+describe("sendPaymentRequestToApi", function() {
+    it("Spy the console.log", function() {
+        const spy = sinon.spy(console, "log");
+        sendPaymentRequestToApi(100, 20);
+        expect(spy.calledWith("The total is: 10")).to.be.false;
+        spy.restore();
+    });
 });
